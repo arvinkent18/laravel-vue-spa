@@ -2069,28 +2069,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   props: {
     source: String
+  },
+  data: function data() {
+    return {
+      email: "",
+      password: ""
+    };
   }
 });
 
@@ -2108,8 +2096,67 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Register"
+  name: "Register",
+  data: function data() {
+    return {
+      isFormValid: false,
+      user: {
+        name: "",
+        email: "",
+        password: ""
+      }
+    };
+  },
+  methods: {
+    registerUser: function registerUser(event) {
+      if (this.$refs.registerForm.validate()) {
+        console.log(event, this.$refs.registerForm);
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -20470,80 +20517,7 @@ var render = function() {
               _c(
                 "v-toolbar",
                 { attrs: { color: "primary", dark: "", flat: "" } },
-                [
-                  _c("v-toolbar-title", [_vm._v("Login form")]),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-tooltip",
-                    {
-                      attrs: { bottom: "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  {
-                                    attrs: {
-                                      href: _vm.source,
-                                      icon: "",
-                                      large: "",
-                                      target: "_blank"
-                                    }
-                                  },
-                                  on
-                                ),
-                                [_c("v-icon", [_vm._v("mdi-code-tags")])],
-                                1
-                              )
-                            ]
-                          }
-                        }
-                      ])
-                    },
-                    [_vm._v(" "), _c("span", [_vm._v("Source")])]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-tooltip",
-                    {
-                      attrs: { right: "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  {
-                                    attrs: {
-                                      icon: "",
-                                      large: "",
-                                      href:
-                                        "https://codepen.io/johnjleider/pen/pMvGQO",
-                                      target: "_blank"
-                                    }
-                                  },
-                                  on
-                                ),
-                                [_c("v-icon", [_vm._v("mdi-codepen")])],
-                                1
-                              )
-                            ]
-                          }
-                        }
-                      ])
-                    },
-                    [_vm._v(" "), _c("span", [_vm._v("Codepen")])]
-                  )
-                ],
+                [_c("v-toolbar-title", [_vm._v("Login form")])],
                 1
               ),
               _vm._v(" "),
@@ -20555,10 +20529,10 @@ var render = function() {
                     [
                       _c("v-text-field", {
                         attrs: {
-                          label: "Login",
-                          name: "login",
-                          "prepend-icon": "person",
-                          type: "text"
+                          label: "Email Address",
+                          name: "email",
+                          "prepend-icon": "email",
+                          type: "email"
                         }
                       }),
                       _vm._v(" "),
@@ -20621,7 +20595,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Register Component")])
+  return _c(
+    "v-row",
+    { attrs: { align: "center", justify: "center" } },
+    [
+      _c(
+        "v-col",
+        { attrs: { cols: "12", sm: "8", md: "4" } },
+        [
+          _c(
+            "v-card",
+            { staticClass: "elevation-12" },
+            [
+              _c(
+                "v-toolbar",
+                { attrs: { color: "primary", dark: "", flat: "" } },
+                [_c("v-toolbar-title", [_vm._v("Register form")])],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-form",
+                    { ref: "registerForm", attrs: { value: _vm.isFormValid } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Name",
+                          name: "name",
+                          "prepend-icon": "person",
+                          type: "text"
+                        },
+                        model: {
+                          value: _vm.user.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "name", $$v)
+                          },
+                          expression: "user.name"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          label: "Email Address",
+                          name: "email",
+                          "prepend-icon": "email",
+                          type: "email"
+                        },
+                        model: {
+                          value: _vm.user.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "email", $$v)
+                          },
+                          expression: "user.email"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          id: "password",
+                          label: "Password",
+                          name: "password",
+                          "prepend-icon": "lock",
+                          type: "password"
+                        },
+                        model: {
+                          value: _vm.user.password,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "password", $$v)
+                          },
+                          expression: "user.password"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: { click: _vm.registerUser }
+                    },
+                    [_vm._v("Register")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
