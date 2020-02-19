@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserRegisterRequest;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class AuthController extends Controller
     {
     }
 
-    public function register(UserRequest $request)
+    public function register(UserRegisterRequest $request)
     {
         $data = $request->all();
 
