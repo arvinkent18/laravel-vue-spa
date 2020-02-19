@@ -9,25 +9,14 @@ require("./bootstrap");
 window.Vue = require("vue");
 
 import Vuetify from "vuetify";
-import VueRouter from "vue-router";
 
 Vue.use(Vuetify);
-Vue.use(VueRouter);
 
-const routes = [
-    {
-        path: "/",
-        name: "home"
-    },
-    {
-        path: "/login",
-        name: "login"
-    }
-];
+import "vuetify/dist/vuetify.min.css";
 
-const router = new VueRouter({
-    routes
-});
+import router from "./router";
+
+import App from "./views/App";
 
 /**
  * The following block of code may be used to automatically register your
@@ -40,11 +29,6 @@ const router = new VueRouter({
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -54,5 +38,6 @@ Vue.component(
 const app = new Vue({
     el: "#app",
     router,
-    vuetify: new Vuetify()
+    vuetify: new Vuetify(),
+    render: h => h(App)
 });
