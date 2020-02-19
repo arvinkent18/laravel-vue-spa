@@ -1,10 +1,6 @@
 <template>
   <v-app light>
     <v-container fluid>
-      <v-navigation-drawer disable-resize-watcher class="primary">
-        <!-- -->
-      </v-navigation-drawer>
-
       <v-toolbar flat class="menu-shadow" color="white" height="64">
         <v-row>
           <v-col cols="12">
