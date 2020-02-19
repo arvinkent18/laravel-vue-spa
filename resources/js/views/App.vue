@@ -35,9 +35,7 @@
 <script>
 export default {
     name: "App",
-    data: () => ({
-        loggedIn: false
-    }),
+    data: () => ({}),
     methods: {
         logout() {
             localStorage.removeItem("token");
@@ -50,6 +48,11 @@ export default {
     created() {
         if (localStorage.getItem("token")) {
             this.loggedIn = true;
+        }
+    },
+    computed: {
+        loggedIn() {
+            return this.$store.getters["loggedIn"];
         }
     }
 };

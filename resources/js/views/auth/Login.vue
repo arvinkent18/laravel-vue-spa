@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
     name: "Login",
     props: {
@@ -52,17 +50,15 @@ export default {
     methods: {
         loginUser() {
             if (this.$refs.loginForm.validate()) {
-                axios
-                    .post("http://localhost:8000/api/login", this.user)
-                    .then(response => {
-                        localStorage.setItem("token", response.data);
-                        this.$router.push({
-                            name: "dashboard"
-                        });
-                    })
-                    .catch(() => {});
+                this.$store.dispatch("loginUser", this.user).then(response => {
+                    this.$router.push({ name: "dashboard" });
+                    console.log(response);
+                });
             }
         }
+    },
+    created() {
+        console.log(this.$store.state);
     }
 };
 </script>

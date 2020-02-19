@@ -2030,9 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
-    return {
-      loggedIn: false
-    };
+    return {};
   },
   methods: {
     logout: function logout() {
@@ -2046,6 +2044,11 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     if (localStorage.getItem("token")) {
       this.loggedIn = true;
+    }
+  },
+  computed: {
+    loggedIn: function loggedIn() {
+      return this.$store.getters["loggedIn"];
     }
   }
 });
@@ -2061,8 +2064,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2099,7 +2100,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   props: {
@@ -2119,15 +2119,18 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.$refs.loginForm.validate()) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/login", this.user).then(function (response) {
-          localStorage.setItem("token", response.data);
-
+        this.$store.dispatch("loginUser", this.user).then(function (response) {
           _this.$router.push({
             name: "dashboard"
           });
-        })["catch"](function () {});
+
+          console.log(response);
+        });
       }
     }
+  },
+  created: function created() {
+    console.log(this.$store.state);
   }
 });
 
@@ -78632,6 +78635,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user */ "./resources/js/store/user.js");
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -78639,9 +78644,60 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {
+    user: _user__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
+
+/***/ }),
+
+/***/ "./resources/js/store/user.js":
+/*!************************************!*\
+  !*** ./resources/js/store/user.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var state = {
+  isLoggedIn: false,
+  user: {}
+};
+var getters = {
+  loggedIn: function loggedIn(state) {
+    return state.isLoggedIn;
+  }
+};
+var mutations = {
+  setLoggedIn: function setLoggedIn(state, payload) {
+    state.isLoggedIn = payload;
+  }
+};
+var actions = {
+  loginUser: function loginUser(ctx, payload) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/login", payload).then(function (response) {
+        localStorage.setItem("token", response.data);
+        ctx.commit("setLoggedIn", true);
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespace: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
 
 /***/ }),
 
