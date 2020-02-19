@@ -41,9 +41,25 @@
                 </v-card-actions>
             </v-card>
         </v-col>
+        <v-snackbar
+            v-model="snackbar.show"
+            :color="snackbar.color"
+            :multi-line="snackbar.mode"
+            :right="snackbar.x"
+            :timeout="snackbar.timeout"
+            :top="snackbar.y"
+            vertical="vertical"
+        >
+            {{ snackbar.text }}
+            <v-btn dark text @click="snackbar.show = false">
+                Close
+            </v-btn>
+        </v-snackbar>
     </v-row>
 </template>
 <script>
+import axios from "axios";
+
 export default {
     name: "Register",
     data: () => ({
@@ -52,11 +68,41 @@ export default {
             name: "",
             email: "",
             password: ""
+        },
+        snackbar: {
+            show: false,
+            text: "",
+            color: "",
+            mode: "",
+            timeout: 6000,
+            x: "right",
+            y: "top"
         }
     }),
     methods: {
         registerUser(event) {
             if (this.$refs.registerForm.validate()) {
+                axios
+                    .post("http://localhost:8000/api/register", this.user)
+                    .then(response => {
+                        if (response.data.success) {
+                            this.snackbar = {
+                                show: true,
+                                text: "Registered successfully"
+                            };
+
+                            this.$router.push({
+                                name: "login"
+                            });
+                        }
+                    })
+                    .catch(() => {
+                        this.snackbar = {
+                            show: true,
+                            text: "Failed to register"
+                        };
+                    });
+                console.log(this.user);
                 console.log(event, this.$refs.registerForm);
             }
         }

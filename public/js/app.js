@@ -2093,6 +2093,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2138,6 +2140,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
   data: function data() {
@@ -2147,12 +2164,41 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         email: "",
         password: ""
+      },
+      snackbar: {
+        show: false,
+        text: "",
+        color: "",
+        mode: "",
+        timeout: 6000,
+        x: "right",
+        y: "top"
       }
     };
   },
   methods: {
     registerUser: function registerUser(event) {
+      var _this = this;
+
       if (this.$refs.registerForm.validate()) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/register", this.user).then(function (response) {
+          if (response.data.success) {
+            _this.snackbar = {
+              show: true,
+              text: "Registered successfully"
+            };
+
+            _this.$router.push({
+              name: "login"
+            });
+          }
+        })["catch"](function () {
+          _this.snackbar = {
+            show: true,
+            text: "Failed to register"
+          };
+        });
+        console.log(this.user);
         console.log(event, this.$refs.registerForm);
       }
     }
@@ -20694,6 +20740,43 @@ var render = function() {
               )
             ],
             1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          attrs: {
+            color: _vm.snackbar.color,
+            "multi-line": _vm.snackbar.mode,
+            right: _vm.snackbar.x,
+            timeout: _vm.snackbar.timeout,
+            top: _vm.snackbar.y,
+            vertical: "vertical"
+          },
+          model: {
+            value: _vm.snackbar.show,
+            callback: function($$v) {
+              _vm.$set(_vm.snackbar, "show", $$v)
+            },
+            expression: "snackbar.show"
+          }
+        },
+        [
+          _vm._v("\n        " + _vm._s(_vm.snackbar.text) + "\n        "),
+          _c(
+            "v-btn",
+            {
+              attrs: { dark: "", text: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar.show = false
+                }
+              }
+            },
+            [_vm._v("\n            Close\n        ")]
           )
         ],
         1
