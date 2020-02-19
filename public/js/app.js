@@ -2035,6 +2035,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2069,6 +2071,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
   props: {
@@ -2076,9 +2081,22 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      email: "",
-      password: ""
+      isFormValid: false,
+      user: {
+        email: "",
+        password: ""
+      }
     };
+  },
+  methods: {
+    loginUser: function loginUser() {
+      if (this.$refs.loginForm.validate()) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/login", this.user).then(function (response) {
+          console.log(response.data);
+        })["catch"](function () {});
+        console.log(this.user);
+      }
+    }
   }
 });
 
@@ -20572,6 +20590,7 @@ var render = function() {
                 [
                   _c(
                     "v-form",
+                    { ref: "loginForm", attrs: { value: _vm.isFormValid } },
                     [
                       _c("v-text-field", {
                         attrs: {
@@ -20579,6 +20598,13 @@ var render = function() {
                           name: "email",
                           "prepend-icon": "email",
                           type: "email"
+                        },
+                        model: {
+                          value: _vm.user.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "email", $$v)
+                          },
+                          expression: "user.email"
                         }
                       }),
                       _vm._v(" "),
@@ -20589,6 +20615,13 @@ var render = function() {
                           name: "password",
                           "prepend-icon": "lock",
                           type: "password"
+                        },
+                        model: {
+                          value: _vm.user.password,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "password", $$v)
+                          },
+                          expression: "user.password"
                         }
                       })
                     ],
@@ -20603,9 +20636,14 @@ var render = function() {
                 [
                   _c("v-spacer"),
                   _vm._v(" "),
-                  _c("v-btn", { attrs: { color: "primary" } }, [
-                    _vm._v("Login")
-                  ])
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "primary" },
+                      on: { click: _vm.loginUser }
+                    },
+                    [_vm._v("Login")]
+                  )
                 ],
                 1
               )

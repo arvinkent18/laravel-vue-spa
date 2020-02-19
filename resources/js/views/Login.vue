@@ -6,12 +6,13 @@
                     <v-toolbar-title>Login form</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
-                    <v-form>
+                    <v-form ref="loginForm" :value="isFormValid">
                         <v-text-field
                             label="Email Address"
                             name="email"
                             prepend-icon="email"
                             type="email"
+                            v-model="user.email"
                         />
 
                         <v-text-field
@@ -20,12 +21,13 @@
                             name="password"
                             prepend-icon="lock"
                             type="password"
+                            v-model="user.password"
                         />
                     </v-form>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer />
-                    <v-btn color="primary">Login</v-btn>
+                    <v-btn color="primary" @click="loginUser">Login</v-btn>
                 </v-card-actions>
             </v-card>
         </v-col>
@@ -33,15 +35,33 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
     name: "Login",
     props: {
         source: String
     },
     data: () => ({
-        email: "",
-        password: ""
-    })
+        isFormValid: false,
+        user: {
+            email: "",
+            password: ""
+        }
+    }),
+    methods: {
+        loginUser() {
+            if (this.$refs.loginForm.validate()) {
+                axios
+                    .post("http://localhost:8000/api/login", this.user)
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(() => {});
+                console.log(this.user);
+            }
+        }
+    }
 };
 </script>
 <style scoped></style>
