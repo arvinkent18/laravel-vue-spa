@@ -102,8 +102,8 @@ export default {
                             text: "Failed to register"
                         };
                     });
-                console.log(this.user);
-                console.log(event, this.$refs.registerForm);
+                //console.log(this.user);
+                //console.log(event, this.$refs.registerForm);
             }
         }
     }

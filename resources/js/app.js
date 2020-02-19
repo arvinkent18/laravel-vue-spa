@@ -10,7 +10,7 @@ window.Vue = require("vue");
 
 import vuetify from "./plugins/vuetify";
 
-import router from "./router";
+import router from "./router/";
 
 import App from "./views/App";
 
