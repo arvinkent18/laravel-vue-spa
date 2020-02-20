@@ -31,7 +31,7 @@ return [
     /*
      * Matches the request origin. `[*]` allows all origins.
      */
-    'allowed_origins' => ['http://127.0.0.1:8000'],
+    'allowed_origins' => [env('FRONT_APP'), '*'],
 
     /*
      * Matches the request origin with, similar to `Request::is()`
