@@ -29,25 +29,28 @@
   </v-app>
 </template>
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
   name: "App",
   data: () => ({}),
   methods: {
+    ...mapActions({
+      checkUserState: "setLoggedInState",
+      logoutUser: "logoutUser"
+    }),
     logout() {
-      this.$store.dispatch("logoutUser").then(() => {
+      this.logoutUser().then(() => {
         this.$router.push({ name: "login" });
       });
     }
   },
   created() {
-    if (localStorage.getItem("token")) {
-      this.loggedIn = true;
-    }
+    this.checkUserState();
   },
   computed: {
-    loggedIn() {
-      return this.$store.getters["loggedIn"];
-    }
+    ...mapGetters({
+      loggedIn: "loggedIn"
+    })
   }
 };
 </script>

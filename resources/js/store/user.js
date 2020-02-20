@@ -38,6 +38,17 @@ const actions = {
             ctx.commit("setLoggedIn", false);
             resolve(true);
         });
+    },
+    setLoggedInState(ctx) {
+        return new Promise((resolve, reject) => {
+            if (localStorage.getItem("token")) {
+                ctx.commit("setLoggedIn", true);
+                resolve(true);
+            } else {
+                ctx.commit("setLoggedIn", false);
+                resolve(false);
+            }
+        });
     }
 };
 
