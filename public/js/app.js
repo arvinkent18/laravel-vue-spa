@@ -2023,10 +2023,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   data: function data() {
@@ -2034,10 +2030,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logout: function logout() {
-      localStorage.removeItem("token");
-      this.loggedIn = false;
-      this.$router.push({
-        name: "login"
+      var _this = this;
+
+      this.$store.dispatch("logoutUser").then(function () {
+        _this.$router.push({
+          name: "login"
+        });
       });
     }
   },
@@ -20577,11 +20575,7 @@ var render = function() {
                                   attrs: { small: "" },
                                   on: { click: _vm.logout }
                                 },
-                                [
-                                  _vm._v(
-                                    "\n                            Logout\n                        "
-                                  )
-                                ]
+                                [_vm._v("Logout")]
                               )
                             : _vm._e()
                         ],
@@ -78688,6 +78682,13 @@ var actions = {
       })["catch"](function (error) {
         reject(error);
       });
+    });
+  },
+  logoutUser: function logoutUser(ctx) {
+    return new Promise(function (resolve) {
+      localStorage.removeItem("token");
+      ctx.commit("setLoggedIn", false);
+      resolve(true);
     });
   }
 };

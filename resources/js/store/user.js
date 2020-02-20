@@ -31,6 +31,13 @@ const actions = {
                     reject(error);
                 });
         });
+    },
+    logoutUser(ctx) {
+        return new Promise(resolve => {
+            localStorage.removeItem("token");
+            ctx.commit("setLoggedIn", false);
+            resolve(true);
+        });
     }
 };
 
