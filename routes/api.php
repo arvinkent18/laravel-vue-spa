@@ -21,4 +21,5 @@ Route::namespace('API')->group(function () {
     Route::post('login', 'AuthController@login')->name('api.login');
     Route::post('register', 'AuthController@register')->name('api.register');
     Route::post('forgot-password', 'ForgotPasswordController@sendResetLinkEmail')->name('api.forgot-password');
+    Route::post('reset-password', 'ResetPasswordController@reset')->name('api.reset-password');
 });
