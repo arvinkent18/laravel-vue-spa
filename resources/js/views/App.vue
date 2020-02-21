@@ -21,6 +21,18 @@
           <router-view></router-view>
         </v-container>
       </v-content>
+      <v-snackbar
+        :key="index"
+        v-for="(snackbar, index) in allNotifications"
+        v-model="snackbar.show"
+        right="right"
+        :timeout="6000"
+        top="top"
+        vertical="vertical"
+      >
+        {{ snackbar.text }}
+        <v-btn dark text @click="removeNotification(index)">Close</v-btn>
+      </v-snackbar>
 
       <v-footer app>
         <!-- -->
@@ -36,7 +48,8 @@ export default {
   methods: {
     ...mapActions({
       checkUserState: "setLoggedInState",
-      logoutUser: "logoutUser"
+      logoutUser: "logoutUser",
+      removeNotification: "removeNotification"
     }),
     logout() {
       this.logoutUser().then(() => {
@@ -49,7 +62,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      loggedIn: "loggedIn"
+      loggedIn: "loggedIn",
+      allNotifications: "notifications"
     })
   }
 };

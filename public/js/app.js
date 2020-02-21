@@ -2030,6 +2030,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
@@ -2038,7 +2050,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     checkUserState: "setLoggedInState",
-    logoutUser: "logoutUser"
+    logoutUser: "logoutUser",
+    removeNotification: "removeNotification"
   }), {
     logout: function logout() {
       var _this = this;
@@ -2054,7 +2067,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.checkUserState();
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    loggedIn: "loggedIn"
+    loggedIn: "loggedIn",
+    allNotifications: "notifications"
   }))
 });
 
@@ -2137,6 +2151,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    addNotification: "addNotification",
     forgotPassword: "forgotPassword"
   }), {
     sendForgotPassword: function sendForgotPassword() {
@@ -2146,16 +2161,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.forgotPassword({
           email: this.email
         }).then(function (response) {
-          _this.snackbar = {
+          _this.addNotification({
             show: true,
             text: "Sent to mail successfully"
-          };
-          console.log(response);
+          });
         })["catch"](function () {
-          _this.snackbar = {
+          _this.addNotification({
             show: true,
             text: "Failed to send mail"
-          };
+          });
         });
       }
     }
@@ -2235,6 +2249,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    addNotification: "addNotification",
     login: "loginUser"
   }), {
     loginUser: function loginUser() {
@@ -2242,18 +2257,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.$refs.loginForm.validate()) {
         this.login(this.user).then(function (response) {
-          _this.$router.push({
-            name: "dashboard"
+          _this.addNotification({
+            show: true,
+            text: "Logged in successfully!"
+          }).then(function () {
+            _this.$router.push({
+              name: "dashboard"
+            });
           });
-
-          console.log(response);
         });
       }
     }
-  }),
-  created: function created() {
-    console.log(this.$store.state);
-  }
+  })
 });
 
 /***/ }),
@@ -2269,6 +2284,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2312,22 +2334,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
@@ -2338,44 +2345,35 @@ __webpack_require__.r(__webpack_exports__);
         name: "",
         email: "",
         password: ""
-      },
-      snackbar: {
-        show: false,
-        text: "",
-        color: "",
-        mode: "",
-        timeout: 6000,
-        x: "right",
-        y: "top"
       }
     };
   },
-  methods: {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    addNotification: "addNotification",
+    register: "register"
+  }), {
     registerUser: function registerUser(event) {
       var _this = this;
 
       if (this.$refs.registerForm.validate()) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/register", this.user).then(function (response) {
-          if (response.data.success) {
-            _this.snackbar = {
-              show: true,
-              text: "Registered successfully"
-            };
-
+        this.register(this.user).then(function (response) {
+          _this.addNotification({
+            show: true,
+            text: "Registered successfully"
+          }).then(function () {
             _this.$router.push({
               name: "login"
             });
-          }
+          });
         })["catch"](function () {
-          _this.snackbar = {
+          _this.addNotification({
             show: true,
             text: "Failed to register"
-          };
-        }); //console.log(this.user);
-        //console.log(event, this.$refs.registerForm);
+          });
+        });
       }
     }
-  }
+  })
 });
 
 /***/ }),
@@ -2454,6 +2452,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    addNotification: "addNotification",
     resetPassword: "resetPassword"
   }), {
     sendResetPassword: function sendResetPassword() {
@@ -2464,18 +2463,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.resetPassword(_objectSpread({}, this.user, {
           token: token
         })).then(function (response) {
-          _this.$router.push({
-            name: "login"
+          _this.addNotification({
+            show: true,
+            text: "Reset password successfully"
+          }).then(function () {
+            _this.$router.push({
+              name: "login"
+            });
           });
-
-          console.log(response);
+        })["catch"](function () {
+          _this.addNotification({
+            show: true,
+            text: "Failed to Reset password"
+          });
         });
       }
     }
-  }),
-  created: function created() {
-    console.log(this.$store.state);
-  }
+  })
 });
 
 /***/ }),
@@ -20828,9 +20832,47 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _vm._l(_vm.allNotifications, function(snackbar, index) {
+            return _c(
+              "v-snackbar",
+              {
+                key: index,
+                attrs: {
+                  right: "right",
+                  timeout: 6000,
+                  top: "top",
+                  vertical: "vertical"
+                },
+                model: {
+                  value: snackbar.show,
+                  callback: function($$v) {
+                    _vm.$set(snackbar, "show", $$v)
+                  },
+                  expression: "snackbar.show"
+                }
+              },
+              [
+                _vm._v("\n      " + _vm._s(snackbar.text) + "\n      "),
+                _c(
+                  "v-btn",
+                  {
+                    attrs: { dark: "", text: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.removeNotification(index)
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                )
+              ],
+              1
+            )
+          }),
+          _vm._v(" "),
           _c("v-footer", { attrs: { app: "" } })
         ],
-        1
+        2
       )
     ],
     1
@@ -21206,43 +21248,6 @@ var render = function() {
               )
             ],
             1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-snackbar",
-        {
-          attrs: {
-            color: _vm.snackbar.color,
-            "multi-line": _vm.snackbar.mode,
-            right: _vm.snackbar.x,
-            timeout: _vm.snackbar.timeout,
-            top: _vm.snackbar.y,
-            vertical: "vertical"
-          },
-          model: {
-            value: _vm.snackbar.show,
-            callback: function($$v) {
-              _vm.$set(_vm.snackbar, "show", $$v)
-            },
-            expression: "snackbar.show"
-          }
-        },
-        [
-          _vm._v("\n        " + _vm._s(_vm.snackbar.text) + "\n        "),
-          _c(
-            "v-btn",
-            {
-              attrs: { dark: "", text: "" },
-              on: {
-                click: function($event) {
-                  _vm.snackbar.show = false
-                }
-              }
-            },
-            [_vm._v("\n            Close\n        ")]
           )
         ],
         1
@@ -79126,6 +79131,55 @@ router.beforeEach(function (to, from, next) {
 
 /***/ }),
 
+/***/ "./resources/js/store/application.js":
+/*!*******************************************!*\
+  !*** ./resources/js/store/application.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  notifications: []
+};
+var getters = {
+  notifications: function notifications(state) {
+    return state.notifications;
+  }
+};
+var mutations = {
+  addNotification: function addNotification(state, payload) {
+    state.notifications.push(payload);
+  },
+  removeNotification: function removeNotification(state, payload) {
+    state.notifications.splice(payload, 1);
+  }
+};
+var actions = {
+  addNotification: function addNotification(ctx, payload) {
+    return new Promise(function (resolve) {
+      ctx.commit("addNotification", payload);
+      resolve(true);
+    });
+  },
+  removeNotification: function removeNotification(ctx, payload) {
+    return new Promise(function (resolve) {
+      ctx.commit("removeNotification", payload);
+      resolve(true);
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespace: true,
+  state: state,
+  getters: getters,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -79138,7 +79192,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user */ "./resources/js/store/user.js");
+/* harmony import */ var _application__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./application */ "./resources/js/store/application.js");
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user */ "./resources/js/store/user.js");
+
 
 
 
@@ -79148,7 +79204,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   mutations: {},
   actions: {},
   modules: {
-    user: _user__WEBPACK_IMPORTED_MODULE_2__["default"]
+    application: _application__WEBPACK_IMPORTED_MODULE_2__["default"],
+    user: _user__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
@@ -79182,6 +79239,19 @@ var mutations = {
   }
 };
 var actions = {
+  register: function register(ctx, payload) {
+    return new Promise(function (resolve, reject) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/register", payload).then(function (response) {
+        if (response.data.success) {
+          resolve(response);
+        } else {
+          reject(response);
+        }
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
+  },
   loginUser: function loginUser(ctx, payload) {
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/login", payload).then(function (response) {

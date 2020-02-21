@@ -51,19 +51,21 @@ export default {
   }),
   methods: {
     ...mapActions({
+      addNotification: "addNotification",
       login: "loginUser"
     }),
     loginUser() {
       if (this.$refs.loginForm.validate()) {
         this.login(this.user).then(response => {
-          this.$router.push({ name: "dashboard" });
-          console.log(response);
+          this.addNotification({
+            show: true,
+            text: "Logged in successfully!"
+          }).then(() => {
+            this.$router.push({ name: "dashboard" });
+          });
         });
       }
     }
-  },
-  created() {
-    console.log(this.$store.state);
   }
 };
 </script>

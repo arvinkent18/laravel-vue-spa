@@ -18,6 +18,22 @@ const mutations = {
 };
 
 const actions = {
+    register(ctx, payload) {
+        return new Promise((resolve, reject) => {
+            axios
+                .post("http://localhost:8000/api/register", payload)
+                .then(response => {
+                    if (response.data.success) {
+                        resolve(response);
+                    } else {
+                        reject(response);
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });
+    },
     loginUser(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios

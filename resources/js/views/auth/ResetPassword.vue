@@ -57,22 +57,31 @@ export default {
   }),
   methods: {
     ...mapActions({
+      addNotification: "addNotification",
       resetPassword: "resetPassword"
     }),
     sendResetPassword() {
       if (this.$refs.resetPasswordForm.validate()) {
         const token = this.$route.query.token;
-        this.resetPassword({ ...this.user, token }).then(response => {
-          this.$router.push({
-            name: "login"
+        this.resetPassword({ ...this.user, token })
+          .then(response => {
+            this.addNotification({
+              show: true,
+              text: "Reset password successfully"
+            }).then(() => {
+              this.$router.push({
+                name: "login"
+              });
+            });
+          })
+          .catch(() => {
+            this.addNotification({
+              show: true,
+              text: "Failed to Reset password"
+            });
           });
-          console.log(response);
-        });
       }
     }
-  },
-  created() {
-    console.log(this.$store.state);
   }
 };
 </script>

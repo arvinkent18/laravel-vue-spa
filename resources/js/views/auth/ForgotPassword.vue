@@ -60,23 +60,23 @@ export default {
   }),
   methods: {
     ...mapActions({
+      addNotification: "addNotification",
       forgotPassword: "forgotPassword"
     }),
     sendForgotPassword() {
       if (this.$refs.forgotPasswordForm.validate()) {
         this.forgotPassword({ email: this.email })
           .then(response => {
-            this.snackbar = {
+            this.addNotification({
               show: true,
               text: "Sent to mail successfully"
-            };
-            console.log(response);
+            });
           })
           .catch(() => {
-            this.snackbar = {
+            this.addNotification({
               show: true,
               text: "Failed to send mail"
-            };
+            });
           });
       }
     }
