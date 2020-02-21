@@ -78836,6 +78836,28 @@ var app = new Vue({
 
 /***/ }),
 
+/***/ "./resources/js/axios/index.js":
+/*!*************************************!*\
+  !*** ./resources/js/axios/index.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: "http://localhost:8000/api/" //timeout: 1000,
+  //headers: {
+  //    "X-Custom-Header": "foobar"
+  //}
+
+}));
+
+/***/ }),
+
 /***/ "./resources/js/bootstrap.js":
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
@@ -79225,13 +79247,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _axios___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../axios/ */ "./resources/js/axios/index.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   register: function register(ctx, payload) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/register", payload).then(function (response) {
+      _axios___WEBPACK_IMPORTED_MODULE_0__["default"].post("/register", payload).then(function (response) {
         if (response.data.success) {
           resolve(response);
         } else {
@@ -79244,7 +79265,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   loginUser: function loginUser(ctx, payload) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/login", payload).then(function (response) {
+      _axios___WEBPACK_IMPORTED_MODULE_0__["default"].post("/login", payload).then(function (response) {
         if (response.data.access_token) {
           localStorage.setItem("token", response.data);
           ctx.commit("setLoggedIn", true);
@@ -79277,7 +79298,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   forgotPassword: function forgotPassword(ctx, payload) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/forgot-password", payload).then(function (response) {
+      _axios___WEBPACK_IMPORTED_MODULE_0__["default"].post("/forgot-password", payload).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
         reject(error);
@@ -79286,7 +79307,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   resetPassword: function resetPassword(ctx, payload) {
     return new Promise(function (resolve, reject) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/reset-password", payload).then(function (response) {
+      _axios___WEBPACK_IMPORTED_MODULE_0__["default"].post("/reset-password", payload).then(function (response) {
         resolve(response);
       })["catch"](function (error) {
         reject(error);

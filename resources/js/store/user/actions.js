@@ -1,10 +1,10 @@
-import axios from "axios";
+import axios from "../../axios/";
 
 export default {
     register(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post("http://localhost:8000/api/register", payload)
+                .post("/register", payload)
                 .then(response => {
                     if (response.data.success) {
                         resolve(response);
@@ -20,7 +20,7 @@ export default {
     loginUser(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post("http://localhost:8000/api/login", payload)
+                .post("/login", payload)
                 .then(response => {
                     if (response.data.access_token) {
                         localStorage.setItem("token", response.data);
@@ -56,7 +56,7 @@ export default {
     forgotPassword(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post("http://localhost:8000/api/forgot-password", payload)
+                .post("/forgot-password", payload)
                 .then(response => {
                     resolve(response);
                 })
@@ -68,7 +68,7 @@ export default {
     resetPassword(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios
-                .post("http://localhost:8000/api/reset-password", payload)
+                .post("/reset-password", payload)
                 .then(response => {
                     resolve(response);
                 })
