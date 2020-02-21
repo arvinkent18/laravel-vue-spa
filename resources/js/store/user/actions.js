@@ -1,23 +1,6 @@
 import axios from "axios";
 
-const state = {
-    isLoggedIn: false,
-    user: {}
-};
-
-const getters = {
-    loggedIn(state) {
-        return state.isLoggedIn;
-    }
-};
-
-const mutations = {
-    setLoggedIn(state, payload) {
-        state.isLoggedIn = payload;
-    }
-};
-
-const actions = {
+export default {
     register(ctx, payload) {
         return new Promise((resolve, reject) => {
             axios
@@ -94,12 +77,4 @@ const actions = {
                 });
         });
     }
-};
-
-export default {
-    namespace: true,
-    state,
-    getters,
-    mutations,
-    actions
 };

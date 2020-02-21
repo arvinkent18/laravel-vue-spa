@@ -2049,6 +2049,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    addNotification: "addNotification",
     checkUserState: "setLoggedInState",
     logoutUser: "logoutUser",
     removeNotification: "removeNotification"
@@ -2057,8 +2058,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.logoutUser().then(function () {
-        _this.$router.push({
-          name: "login"
+        _this.addNotification({
+          show: true,
+          text: "Logout successfully"
+        }).then(function () {
+          _this.$router.push({
+            name: "login"
+          });
         });
       });
     }
@@ -79073,55 +79079,6 @@ router.beforeEach(function (to, from, next) {
 
 /***/ }),
 
-/***/ "./resources/js/store/application.js":
-/*!*******************************************!*\
-  !*** ./resources/js/store/application.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var state = {
-  notifications: []
-};
-var getters = {
-  notifications: function notifications(state) {
-    return state.notifications;
-  }
-};
-var mutations = {
-  addNotification: function addNotification(state, payload) {
-    state.notifications.push(payload);
-  },
-  removeNotification: function removeNotification(state, payload) {
-    state.notifications.splice(payload, 1);
-  }
-};
-var actions = {
-  addNotification: function addNotification(ctx, payload) {
-    return new Promise(function (resolve) {
-      ctx.commit("addNotification", payload);
-      resolve(true);
-    });
-  },
-  removeNotification: function removeNotification(ctx, payload) {
-    return new Promise(function (resolve) {
-      ctx.commit("removeNotification", payload);
-      resolve(true);
-    });
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = ({
-  namespace: true,
-  state: state,
-  getters: getters,
-  mutations: mutations,
-  actions: actions
-});
-
-/***/ }),
-
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -79134,8 +79091,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _application__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./application */ "./resources/js/store/application.js");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user */ "./resources/js/store/user.js");
+/* harmony import */ var _notification___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./notification/ */ "./resources/js/store/notification/index.js");
+/* harmony import */ var _user___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user/ */ "./resources/js/store/user/index.js");
 
 
 
@@ -79146,18 +79103,123 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   mutations: {},
   actions: {},
   modules: {
-    application: _application__WEBPACK_IMPORTED_MODULE_2__["default"],
-    user: _user__WEBPACK_IMPORTED_MODULE_3__["default"]
+    notification: _notification___WEBPACK_IMPORTED_MODULE_2__["default"],
+    user: _user___WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (store);
 
 /***/ }),
 
-/***/ "./resources/js/store/user.js":
-/*!************************************!*\
-  !*** ./resources/js/store/user.js ***!
-  \************************************/
+/***/ "./resources/js/store/notification/actions.js":
+/*!****************************************************!*\
+  !*** ./resources/js/store/notification/actions.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  addNotification: function addNotification(ctx, payload) {
+    return new Promise(function (resolve) {
+      ctx.commit("addNotification", payload);
+      resolve(true);
+    });
+  },
+  removeNotification: function removeNotification(ctx, payload) {
+    return new Promise(function (resolve) {
+      ctx.commit("removeNotification", payload);
+      resolve(true);
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/notification/getters.js":
+/*!****************************************************!*\
+  !*** ./resources/js/store/notification/getters.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  notifications: function notifications(state) {
+    return state.notifications;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/notification/index.js":
+/*!**************************************************!*\
+  !*** ./resources/js/store/notification/index.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/store/notification/state.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/notification/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/notification/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/store/notification/actions.js");
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespace: true,
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/notification/mutations.js":
+/*!******************************************************!*\
+  !*** ./resources/js/store/notification/mutations.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  addNotification: function addNotification(state, payload) {
+    state.notifications.push(payload);
+  },
+  removeNotification: function removeNotification(state, payload) {
+    state.notifications.splice(payload, 1);
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/notification/state.js":
+/*!**************************************************!*\
+  !*** ./resources/js/store/notification/state.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  notifications: []
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/user/actions.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/user/actions.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -79166,21 +79228,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var state = {
-  isLoggedIn: false,
-  user: {}
-};
-var getters = {
-  loggedIn: function loggedIn(state) {
-    return state.isLoggedIn;
-  }
-};
-var mutations = {
-  setLoggedIn: function setLoggedIn(state, payload) {
-    state.isLoggedIn = payload;
-  }
-};
-var actions = {
+/* harmony default export */ __webpack_exports__["default"] = ({
   register: function register(ctx, payload) {
     return new Promise(function (resolve, reject) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("http://localhost:8000/api/register", payload).then(function (response) {
@@ -79245,13 +79293,83 @@ var actions = {
       });
     });
   }
-};
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/user/getters.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/user/getters.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  loggedIn: function loggedIn(state) {
+    return state.isLoggedIn;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/user/index.js":
+/*!******************************************!*\
+  !*** ./resources/js/store/user/index.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./state */ "./resources/js/store/user/state.js");
+/* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/user/getters.js");
+/* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mutations */ "./resources/js/store/user/mutations.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./actions */ "./resources/js/store/user/actions.js");
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespace: true,
-  state: state,
-  getters: getters,
-  mutations: mutations,
-  actions: actions
+  state: _state__WEBPACK_IMPORTED_MODULE_0__["default"],
+  getters: _getters__WEBPACK_IMPORTED_MODULE_1__["default"],
+  mutations: _mutations__WEBPACK_IMPORTED_MODULE_2__["default"],
+  actions: _actions__WEBPACK_IMPORTED_MODULE_3__["default"]
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/user/mutations.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/user/mutations.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  setLoggedIn: function setLoggedIn(state, payload) {
+    state.isLoggedIn = payload;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/user/state.js":
+/*!******************************************!*\
+  !*** ./resources/js/store/user/state.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  isLoggedIn: false,
+  user: {}
 });
 
 /***/ }),

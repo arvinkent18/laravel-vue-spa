@@ -47,13 +47,19 @@ export default {
   data: () => ({}),
   methods: {
     ...mapActions({
+      addNotification: "addNotification",
       checkUserState: "setLoggedInState",
       logoutUser: "logoutUser",
       removeNotification: "removeNotification"
     }),
     logout() {
       this.logoutUser().then(() => {
-        this.$router.push({ name: "login" });
+        this.addNotification({
+          show: true,
+          text: "Logout successfully"
+        }).then(() => {
+          this.$router.push({ name: "login" });
+        });
       });
     }
   },
