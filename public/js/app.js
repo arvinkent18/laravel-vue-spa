@@ -2117,18 +2117,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ForgotPassword",
@@ -2138,16 +2126,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       isFormValid: false,
-      email: "",
-      snackbar: {
-        show: false,
-        text: "",
-        color: "",
-        mode: "",
-        timeout: 6000,
-        x: "right",
-        y: "top"
-      }
+      email: ""
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
@@ -20969,43 +20948,6 @@ var render = function() {
               )
             ],
             1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-snackbar",
-        {
-          attrs: {
-            color: _vm.snackbar.color,
-            "multi-line": _vm.snackbar.mode,
-            right: _vm.snackbar.x,
-            timeout: _vm.snackbar.timeout,
-            top: _vm.snackbar.y,
-            vertical: "vertical"
-          },
-          model: {
-            value: _vm.snackbar.show,
-            callback: function($$v) {
-              _vm.$set(_vm.snackbar, "show", $$v)
-            },
-            expression: "snackbar.show"
-          }
-        },
-        [
-          _vm._v("\n    " + _vm._s(_vm.snackbar.text) + "\n    "),
-          _c(
-            "v-btn",
-            {
-              attrs: { dark: "", text: "" },
-              on: {
-                click: function($event) {
-                  _vm.snackbar.show = false
-                }
-              }
-            },
-            [_vm._v("Close")]
           )
         ],
         1

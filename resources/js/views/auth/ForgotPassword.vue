@@ -22,18 +22,6 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.color"
-      :multi-line="snackbar.mode"
-      :right="snackbar.x"
-      :timeout="snackbar.timeout"
-      :top="snackbar.y"
-      vertical="vertical"
-    >
-      {{ snackbar.text }}
-      <v-btn dark text @click="snackbar.show = false">Close</v-btn>
-    </v-snackbar>
   </v-row>
 </template>
 
@@ -47,16 +35,7 @@ export default {
   },
   data: () => ({
     isFormValid: false,
-    email: "",
-    snackbar: {
-      show: false,
-      text: "",
-      color: "",
-      mode: "",
-      timeout: 6000,
-      x: "right",
-      y: "top"
-    }
+    email: ""
   }),
   methods: {
     ...mapActions({
