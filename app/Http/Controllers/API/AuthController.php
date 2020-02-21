@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Actions\Auth\LoginAction;
+use App\Actions\Auth\RegisterAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Requests\UserRegisterRequest;
@@ -11,27 +13,13 @@ use Laravel\Passport\Client;
 
 class AuthController extends Controller
 {
-    public function login(UserLoginRequest $request)
+    public function login(UserLoginRequest $request, LoginAction $loginAction)
     {
-        $passwordGrantClient = Client::where('password_client', 1)->first();
+        $passportRequest = $loginAction->run($request->all());
+        $tokenContent = $passportRequest['content'];
 
-        $data =  [
-            'grant_type' => 'password',
-            'client_id' => $passwordGrantClient->id,
-            'client_secret' => $passwordGrantClient->secret,
-            'username' => $request->email,
-            'password' => $request->password,
-            'scope' => '*',
-        ];
-
-        $tokenRequest = Request::create('/oauth/token', 'post', $data);
-
-        $tokenResponse = app()->handle($tokenRequest);
-        $contentString = $tokenResponse->content();
-        $tokenContent = json_decode($contentString);
-
-        if (!empty($tokenContent->access_token)) {
-            return $tokenResponse;
+        if (!empty($tokenContent['access_token'])) {
+            return $passportRequest['response'];
         }
 
         return response()->json([
@@ -39,11 +27,9 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(UserRegisterRequest $request)
+    public function register(UserRegisterRequest $request, RegisterAction $registerAction)
     {
-        $data = $request->all();
-
-        $user = User::create($data);
+        $user = $registerAction->run($request->all());
 
         return response()->json([
             'success' => true,
