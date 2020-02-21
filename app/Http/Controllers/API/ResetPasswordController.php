@@ -6,7 +6,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResetPasswordRequest;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
@@ -32,8 +31,6 @@ class ResetPasswordController extends Controller
         $user->setRememberToken(Str::random(60));
 
         $user->save();
-
-        //event(new PasswordReset($user));
     }
 
     protected function credentials(ResetPasswordRequest $request)
