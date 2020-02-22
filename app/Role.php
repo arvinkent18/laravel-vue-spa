@@ -18,4 +18,14 @@ class Role extends Model
     {
         return $this->permissions()->whereIn('slug', $permissions)->count();
     }
+
+    public function scopeDefaultRole($query)
+    {
+        return $query->where('slug', 'user');
+    }
+
+    public function scopeAdministratorRole($query)
+    {
+        return $query->where('slug', 'administrator');
+    }
 }

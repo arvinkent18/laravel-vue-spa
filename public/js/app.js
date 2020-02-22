@@ -2481,10 +2481,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Dashboard"
+  name: "Dashboard",
+  mounted: function mounted() {
+    this.$store.dispatch("setUserDetails");
+  }
 });
 
 /***/ }),
@@ -21357,7 +21358,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n    Dashboard\n")])
+  return _c("div", [_vm._v("Dashboard")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -78848,13 +78849,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
-  baseURL: "http://localhost:8000/api/" //timeout: 1000,
-  //headers: {
-  //    "X-Custom-Header": "foobar"
-  //}
+var instance = axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: "http://localhost:8000/api/"
+});
+instance.interceptors.request.use(function (config) {
+  var token = localStorage.getItem("token");
 
-}));
+  if (token) {
+    var bearer = "Bearer " + token;
+    config.headers.common["Authorization"] = bearer;
+  }
+
+  console.log(config);
+  return config;
+}, function (err) {
+  return Promise.reject(err);
+});
+/* harmony default export */ __webpack_exports__["default"] = (instance);
 
 /***/ }),
 
@@ -79267,7 +79278,8 @@ __webpack_require__.r(__webpack_exports__);
     return new Promise(function (resolve, reject) {
       _axios___WEBPACK_IMPORTED_MODULE_0__["default"].post("/login", payload).then(function (response) {
         if (response.data.access_token) {
-          localStorage.setItem("token", response.data);
+          console.log(response.data.access_token);
+          localStorage.setItem("token", response.data.access_token);
           ctx.commit("setLoggedIn", true);
           resolve(response);
         } else {
@@ -79313,6 +79325,17 @@ __webpack_require__.r(__webpack_exports__);
         reject(error);
       });
     });
+  },
+  setUserDetails: function setUserDetails(ctx) {
+    return new Promise(function (resolve, reject) {
+      _axios___WEBPACK_IMPORTED_MODULE_0__["default"].get("/user").then(function (response) {
+        console.log(response.data);
+        ctx.commit("setUserDetails", response.data);
+        resolve(response);
+      })["catch"](function (error) {
+        reject(error);
+      });
+    });
   }
 });
 
@@ -79330,6 +79353,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   loggedIn: function loggedIn(state) {
     return state.isLoggedIn;
+  },
+  userDetails: function userDetails(state) {
+    return state.userDetails;
   }
 });
 
@@ -79374,6 +79400,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   setLoggedIn: function setLoggedIn(state, payload) {
     state.isLoggedIn = payload;
+  },
+  setUserDetails: function setUserDetails(state, payload) {
+    state.userDetails = payload;
   }
 });
 
@@ -79390,7 +79419,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   isLoggedIn: false,
-  user: {}
+  userDetails: {}
 });
 
 /***/ }),
