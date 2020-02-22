@@ -52,7 +52,8 @@ export default {
   methods: {
     ...mapActions({
       addNotification: "addNotification",
-      login: "loginUser"
+      login: "loginUser",
+      setUserDetails: "setUserDetails"
     }),
     loginUser() {
       if (this.$refs.loginForm.validate()) {

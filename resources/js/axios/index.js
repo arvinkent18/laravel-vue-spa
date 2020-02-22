@@ -13,8 +13,6 @@ instance.interceptors.request.use(
             config.headers.common["Authorization"] = bearer;
         }
 
-        console.log(config);
-
         return config;
     },
     function(err) {

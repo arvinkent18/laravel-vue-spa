@@ -4,11 +4,15 @@ import Middleware from "../middlewares";
 
 Vue.use(VueRouter);
 
+import AppLayout from "../views/layouts/AppLayout";
+import AuthLayout from "../views/layouts/AuthLayout";
+
 import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
 import Dashboard from "../views/pages/Dashboard";
+import Profile from "../views/pages/Profile";
 
 const routes = [
     {
@@ -16,41 +20,63 @@ const routes = [
         name: "home"
     },
     {
-        path: "/login",
-        name: "login",
-        component: Login,
-        meta: {
-            middleware: [Middleware.guest]
-        }
+        name: "auth",
+        path: "/",
+        component: AuthLayout,
+        children: [
+            {
+                path: "login",
+                name: "login",
+                component: Login,
+                meta: {
+                    middleware: [Middleware.guest]
+                }
+            },
+            {
+                path: "/register",
+                name: "register",
+                component: Register
+            },
+            {
+                path: "/forgot-password",
+                name: "forgotPassword",
+                component: ForgotPassword,
+                meta: {
+                    middleware: [Middleware.guest]
+                }
+            },
+            {
+                path: "/reset-password",
+                name: "resetPassword",
+                component: ResetPassword,
+                meta: {
+                    middleware: [Middleware.guest]
+                }
+            }
+        ]
     },
     {
-        path: "/register",
-        name: "register",
-        component: Register
-    },
-    {
-        path: "/dashboard",
-        name: "dashboard",
-        component: Dashboard,
-        meta: {
-            middleware: [Middleware.auth]
-        }
-    },
-    {
-        path: "/forgot-password",
-        name: "forgotPassword",
-        component: ForgotPassword,
-        meta: {
-            middleware: [Middleware.guest]
-        }
-    },
-    {
-        path: "/reset-password",
-        name: "resetPassword",
-        component: ResetPassword,
-        meta: {
-            middleware: [Middleware.guest]
-        }
+        name: "app",
+        path: "/",
+        component: AppLayout,
+        children: [
+            {
+                path: "/dashboard",
+                name: "dashboard",
+                component: Dashboard,
+                meta: {
+                    middleware: [Middleware.auth]
+                }
+            },
+            {
+                path: "/profile",
+                name: "profile",
+                component: Profile,
+                meta: {
+                    middleware: [Middleware.auth]
+                }
+            }
+        ]
     }
 ];
 

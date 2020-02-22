@@ -23,7 +23,6 @@ export default {
                 .post("/login", payload)
                 .then(response => {
                     if (response.data.access_token) {
-                        console.log(response.data.access_token);
                         localStorage.setItem(
                             "token",
                             response.data.access_token
@@ -86,9 +85,7 @@ export default {
             axios
                 .get("/user")
                 .then(response => {
-                    console.log(response.data);
-                    ctx.commit("setUserDetails", response.data);
-
+                    ctx.commit("setUserDetails", response.data.data);
                     resolve(response);
                 })
                 .catch(error => {
