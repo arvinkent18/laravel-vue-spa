@@ -1,6 +1,6 @@
 # Laravel Vue SPA
 
-A Single Page Application with Laravel, Vue, Vuetify, Vue Router, and Vuex
+A Single Page Application with Laravel, Vue, Vuetify, Vue Router, Vuex, and Passport.
 
 ## Dashboard
 ![thumbnail](https://user-images.githubusercontent.com/32665778/75171201-396dcf80-5766-11ea-9de8-08bf6e820cfc.PNG)
