@@ -2524,51 +2524,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AppLayout",
@@ -21513,49 +21468,6 @@ var render = function() {
     { attrs: { fluid: "" } },
     [
       _c(
-        "v-toolbar",
-        {
-          staticClass: "menu-shadow",
-          attrs: { flat: "", color: "white", height: "64" }
-        },
-        [
-          _c(
-            "v-row",
-            [
-              _c(
-                "v-col",
-                { attrs: { cols: "12" } },
-                [
-                  _c("v-toolbar-title", { staticClass: "text-uppercase" }, [
-                    _vm._v("AKL App")
-                  ]),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-toolbar-items",
-                    [
-                      _vm.loggedIn
-                        ? _c(
-                            "v-btn",
-                            { attrs: { small: "" }, on: { click: _vm.logout } },
-                            [_vm._v("Logout")]
-                          )
-                        : _vm._e()
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "v-content",
         [_c("v-container", { attrs: { fluid: "" } }, [_c("router-view")], 1)],
         1
@@ -21635,37 +21547,18 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c(
-            "v-toolbar-title",
-            [
-              _vm._v("\n      Application\n      "),
-              _c("v-spacer", [_vm._v("Logout")])
-            ],
-            1
-          )
+          _c("v-toolbar-title", [_vm._v("Application")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _vm.loggedIn
+            ? _c("v-btn", { attrs: { small: "" }, on: { click: _vm.logout } }, [
+                _vm._v("Logout")
+              ])
+            : _vm._e()
         ],
         1
       ),
-      _vm._v(" "),
-      _c("material-chart-card", { attrs: { color: "info", type: "Line" } }, [
-        _c("h4", { staticClass: "title font-weight-light" }, [
-          _vm._v("Daily Sales")
-        ]),
-        _vm._v(" "),
-        _c(
-          "p",
-          { staticClass: "category d-inline-flex font-weight-light" },
-          [
-            _c("v-icon", { attrs: { color: "green", small: "" } }, [
-              _vm._v("mdi-arrow-up")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "green--text" }, [_vm._v("55%")]),
-            _vm._v(" \n      increase in today's sales\n    ")
-          ],
-          1
-        )
-      ]),
       _vm._v(" "),
       _c(
         "v-content",
@@ -21677,91 +21570,7 @@ var render = function() {
               _c(
                 "v-row",
                 { attrs: { align: "center", justify: "center" } },
-                [
-                  _c(
-                    "v-col",
-                    { staticClass: "text-center" },
-                    [
-                      _c(
-                        "v-tooltip",
-                        {
-                          attrs: { left: "" },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "activator",
-                              fn: function(ref) {
-                                var on = ref.on
-                                return [
-                                  _c(
-                                    "v-btn",
-                                    _vm._g(
-                                      {
-                                        attrs: {
-                                          href: _vm.source,
-                                          icon: "",
-                                          large: "",
-                                          target: "_blank"
-                                        }
-                                      },
-                                      on
-                                    ),
-                                    [
-                                      _c("v-icon", { attrs: { large: "" } }, [
-                                        _vm._v("mdi-code-tags")
-                                      ])
-                                    ],
-                                    1
-                                  )
-                                ]
-                              }
-                            }
-                          ])
-                        },
-                        [_vm._v(" "), _c("span", [_vm._v("Source")])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-tooltip",
-                        {
-                          attrs: { right: "" },
-                          scopedSlots: _vm._u([
-                            {
-                              key: "activator",
-                              fn: function(ref) {
-                                var on = ref.on
-                                return [
-                                  _c(
-                                    "v-btn",
-                                    _vm._g(
-                                      {
-                                        attrs: {
-                                          icon: "",
-                                          large: "",
-                                          href:
-                                            "https://codepen.io/johnjleider/pen/zgxeLQ",
-                                          target: "_blank"
-                                        }
-                                      },
-                                      on
-                                    ),
-                                    [
-                                      _c("v-icon", { attrs: { large: "" } }, [
-                                        _vm._v("mdi-codepen")
-                                      ])
-                                    ],
-                                    1
-                                  )
-                                ]
-                              }
-                            }
-                          ])
-                        },
-                        [_vm._v(" "), _c("span", [_vm._v("Codepen")])]
-                      )
-                    ],
-                    1
-                  )
-                ],
+                [_c("v-col", { staticClass: "text-center" })],
                 1
               )
             ],
@@ -21772,7 +21581,7 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
-        _c("span", { staticClass: "white--text" }, [_vm._v("© 2019")])
+        _c("span", { staticClass: "white--text" }, [_vm._v("© 2020")])
       ])
     ],
     1
