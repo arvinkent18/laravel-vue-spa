@@ -2468,9 +2468,86 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AppLayout",
+  data: function data() {
+    return {
+      drawer: null
+    };
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     addNotification: "addNotification",
     logoutUser: "logoutUser"
@@ -21430,7 +21507,221 @@ var render = function() {
         "v-content",
         [_c("v-container", { attrs: { fluid: "" } }, [_c("router-view")], 1)],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c(
+        "v-navigation-drawer",
+        {
+          attrs: { app: "" },
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
+            },
+            expression: "drawer"
+          }
+        },
+        [
+          _c(
+            "v-list",
+            { attrs: { dense: "" } },
+            [
+              _c(
+                "v-list-item",
+                { attrs: { link: "" } },
+                [
+                  _c(
+                    "v-list-item-action",
+                    [_c("v-icon", [_vm._v("mdi-home")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Home")])],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { link: "" } },
+                [
+                  _c(
+                    "v-list-item-action",
+                    [_c("v-icon", [_vm._v("mdi-contact-mail")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-content",
+                    [_c("v-list-item-title", [_vm._v("Contact")])],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-app-bar",
+        { attrs: { app: "", color: "indigo", dark: "" } },
+        [
+          _c("v-app-bar-nav-icon", {
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                _vm.drawer = !_vm.drawer
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "v-toolbar-title",
+            [
+              _vm._v("\n      Application\n      "),
+              _c("v-spacer", [_vm._v("Logout")])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("material-chart-card", { attrs: { color: "info", type: "Line" } }, [
+        _c("h4", { staticClass: "title font-weight-light" }, [
+          _vm._v("Daily Sales")
+        ]),
+        _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "category d-inline-flex font-weight-light" },
+          [
+            _c("v-icon", { attrs: { color: "green", small: "" } }, [
+              _vm._v("mdi-arrow-up")
+            ]),
+            _vm._v(" "),
+            _c("span", { staticClass: "green--text" }, [_vm._v("55%")]),
+            _vm._v(" \n      increase in today's sales\n    ")
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "v-content",
+        [
+          _c(
+            "v-container",
+            { staticClass: "fill-height", attrs: { fluid: "" } },
+            [
+              _c(
+                "v-row",
+                { attrs: { align: "center", justify: "center" } },
+                [
+                  _c(
+                    "v-col",
+                    { staticClass: "text-center" },
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          attrs: { left: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      {
+                                        attrs: {
+                                          href: _vm.source,
+                                          icon: "",
+                                          large: "",
+                                          target: "_blank"
+                                        }
+                                      },
+                                      on
+                                    ),
+                                    [
+                                      _c("v-icon", { attrs: { large: "" } }, [
+                                        _vm._v("mdi-code-tags")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [_vm._v(" "), _c("span", [_vm._v("Source")])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-tooltip",
+                        {
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._g(
+                                      {
+                                        attrs: {
+                                          icon: "",
+                                          large: "",
+                                          href:
+                                            "https://codepen.io/johnjleider/pen/zgxeLQ",
+                                          target: "_blank"
+                                        }
+                                      },
+                                      on
+                                    ),
+                                    [
+                                      _c("v-icon", { attrs: { large: "" } }, [
+                                        _vm._v("mdi-codepen")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [_vm._v(" "), _c("span", [_vm._v("Codepen")])]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("v-footer", { attrs: { color: "indigo", app: "" } }, [
+        _c("span", { staticClass: "white--text" }, [_vm._v("© 2019")])
+      ])
     ],
     1
   )
@@ -79169,6 +79460,19 @@ var vuetify = new vuetify__WEBPACK_IMPORTED_MODULE_1___default.a({
   icons: {
     iconfont: "mdi" // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
 
+  },
+  theme: {
+    themes: {
+      light: {
+        primary: "#1DE9B6",
+        secondary: "#b0bec5",
+        accent: "#8c9eff",
+        error: "#b71c1c",
+        info: "#2196F3",
+        success: "#4CAF50",
+        warning: "#FFC107"
+      }
+    }
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (vuetify);
