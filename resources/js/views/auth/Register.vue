@@ -13,6 +13,7 @@
               prepend-icon="person"
               type="text"
               v-model="user.name"
+              :rules="[...requiredRules, ...nameRules]"
             />
 
             <v-text-field
@@ -21,6 +22,7 @@
               prepend-icon="email"
               type="email"
               v-model="user.email"
+              :rules="[...requiredRules, ...emailRules]"
             />
 
             <v-text-field
@@ -30,6 +32,17 @@
               prepend-icon="lock"
               type="password"
               v-model="user.password"
+              :rules="[...requiredRules, ...passwordRules]"
+            />
+
+            <v-text-field
+              id="password"
+              label="Password Confirmation"
+              name="password_confirmation"
+              prepend-icon="lock"
+              type="password"
+              v-model="user.passwordConfirmation"
+              :rules="[...requiredRules, ...passwordRules, passwordValidator]"
             />
           </v-form>
         </v-card-text>
@@ -52,8 +65,17 @@ export default {
     user: {
       name: "",
       email: "",
-      password: ""
-    }
+      password: "",
+      passwordConfirmation: ""
+    },
+    requiredRules: [v => !!v || "Name is required"],
+    nameRules: [
+      v => (v && v.length >= 5) || "Name must be at least 5 characters"
+    ],
+    emailRules: [v => /.+@.+\..+/.test(v) || "E-mail must be valid"],
+    passwordRules: [
+      v => (v && v.length >= 5) || "Password must be at least 5 characters"
+    ]
   }),
   methods: {
     ...mapActions({
@@ -80,6 +102,12 @@ export default {
             });
           });
       }
+    },
+    passwordValidator(v) {
+      return (
+        this.user.passwordConfirmation === this.user.password ||
+        "Password didn`t match"
+      );
     }
   }
 };

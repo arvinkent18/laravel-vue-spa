@@ -2282,6 +2282,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2292,8 +2305,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       user: {
         name: "",
         email: "",
-        password: ""
-      }
+        password: "",
+        passwordConfirmation: ""
+      },
+      requiredRules: [function (v) {
+        return !!v || "Name is required";
+      }],
+      nameRules: [function (v) {
+        return v && v.length >= 5 || "Name must be at least 5 characters";
+      }],
+      emailRules: [function (v) {
+        return /.+@.+\..+/.test(v) || "E-mail must be valid";
+      }],
+      passwordRules: [function (v) {
+        return v && v.length >= 5 || "Password must be at least 5 characters";
+      }]
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
@@ -2320,6 +2346,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         });
       }
+    },
+    passwordValidator: function passwordValidator(v) {
+      return this.user.passwordConfirmation === this.user.password || "Password didn`t match";
     }
   })
 });
@@ -21227,7 +21256,8 @@ var render = function() {
                           label: "Name",
                           name: "name",
                           "prepend-icon": "person",
-                          type: "text"
+                          type: "text",
+                          rules: _vm.requiredRules.concat(_vm.nameRules)
                         },
                         model: {
                           value: _vm.user.name,
@@ -21243,7 +21273,8 @@ var render = function() {
                           label: "Email Address",
                           name: "email",
                           "prepend-icon": "email",
-                          type: "email"
+                          type: "email",
+                          rules: _vm.requiredRules.concat(_vm.emailRules)
                         },
                         model: {
                           value: _vm.user.email,
@@ -21260,7 +21291,8 @@ var render = function() {
                           label: "Password",
                           name: "password",
                           "prepend-icon": "lock",
-                          type: "password"
+                          type: "password",
+                          rules: _vm.requiredRules.concat(_vm.passwordRules)
                         },
                         model: {
                           value: _vm.user.password,
@@ -21268,6 +21300,26 @@ var render = function() {
                             _vm.$set(_vm.user, "password", $$v)
                           },
                           expression: "user.password"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-text-field", {
+                        attrs: {
+                          id: "password",
+                          label: "Password Confirmation",
+                          name: "password_confirmation",
+                          "prepend-icon": "lock",
+                          type: "password",
+                          rules: _vm.requiredRules.concat(_vm.passwordRules, [
+                            _vm.passwordValidator
+                          ])
+                        },
+                        model: {
+                          value: _vm.user.passwordConfirmation,
+                          callback: function($$v) {
+                            _vm.$set(_vm.user, "passwordConfirmation", $$v)
+                          },
+                          expression: "user.passwordConfirmation"
                         }
                       })
                     ],
