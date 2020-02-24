@@ -13,6 +13,7 @@
               prepend-icon="email"
               type="email"
               v-model="user.email"
+              :rules="[...requiredRules, ...emailRules]"
             />
 
             <v-text-field
@@ -22,6 +23,7 @@
               prepend-icon="lock"
               type="password"
               v-model="user.password"
+              :rules="requiredRules"
             />
           </v-form>
         </v-card-text>
@@ -39,15 +41,14 @@ import { mapActions } from "vuex";
 
 export default {
   name: "Login",
-  props: {
-    source: String
-  },
   data: () => ({
     isFormValid: false,
     user: {
       email: "",
       password: ""
-    }
+    },
+    requiredRules: [v => !!v || "Name is required"],
+    emailRules: [v => /.+@.+\..+/.test(v) || "E-mail must be valid"]
   }),
   methods: {
     ...mapActions({

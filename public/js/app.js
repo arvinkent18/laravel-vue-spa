@@ -2180,19 +2180,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
-  props: {
-    source: String
-  },
   data: function data() {
     return {
       isFormValid: false,
       user: {
         email: "",
         password: ""
-      }
+      },
+      requiredRules: [function (v) {
+        return !!v || "Name is required";
+      }],
+      emailRules: [function (v) {
+        return /.+@.+\..+/.test(v) || "E-mail must be valid";
+      }]
     };
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
@@ -21098,7 +21103,8 @@ var render = function() {
                           label: "Email Address",
                           name: "email",
                           "prepend-icon": "email",
-                          type: "email"
+                          type: "email",
+                          rules: _vm.requiredRules.concat(_vm.emailRules)
                         },
                         model: {
                           value: _vm.user.email,
@@ -21115,7 +21121,8 @@ var render = function() {
                           label: "Password",
                           name: "password",
                           "prepend-icon": "lock",
-                          type: "password"
+                          type: "password",
+                          rules: _vm.requiredRules
                         },
                         model: {
                           value: _vm.user.password,
