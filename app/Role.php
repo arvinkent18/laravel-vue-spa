@@ -24,8 +24,8 @@ class Role extends Model
         return $query->where('slug', 'user');
     }
 
-    public function scopeAdministratorRole($query)
+    public function scopeAdminRole($query)
     {
-        return $query->where('slug', 'administrator');
+        return $query->where('slug', 'admin');
     }
 }

@@ -11,13 +11,15 @@ import Login from "../views/auth/Login";
 import Register from "../views/auth/Register";
 import ForgotPassword from "../views/auth/ForgotPassword";
 import ResetPassword from "../views/auth/ResetPassword";
+import Home from "../views/pages/Home";
 import Dashboard from "../views/pages/Dashboard";
 import Profile from "../views/pages/Profile";
 
 const routes = [
     {
         path: "/",
-        name: "home"
+        name: "home",
+        component: Home
     },
     {
         name: "auth",
@@ -65,7 +67,8 @@ const routes = [
                 name: "dashboard",
                 component: Dashboard,
                 meta: {
-                    middleware: [Middleware.auth]
+                    middleware: [Middleware.auth, Middleware.checkPermissions],
+                    permissions: ["view-pages"]
                 }
             },
             {

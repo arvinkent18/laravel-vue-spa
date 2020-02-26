@@ -9,6 +9,7 @@
       :timeout="6000"
       top="top"
       vertical="vertical"
+      :color="snackbar.color"
     >
       {{ snackbar.text }}
       <v-btn dark text @click="removeNotification(index)">Close</v-btn>
@@ -17,6 +18,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "App",
   methods: {
@@ -29,7 +31,9 @@ export default {
   created() {
     this.checkUserState().then(() => {
       if (this.loggedIn) {
-        this.setUserDetails();
+        this.setUserDetails().then(() => {
+          console.log("Permitted: ", this.$can("view-pages"));
+        });
       }
     });
   },

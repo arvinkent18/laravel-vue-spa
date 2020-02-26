@@ -14,6 +14,8 @@ import router from "./router/";
 
 import store from "./store/";
 
+import can from "./helpers/can";
+
 import App from "./views/App";
 
 /**
@@ -32,6 +34,8 @@ import App from "./views/App";
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+Vue.prototype.$can = can;
 
 const app = new Vue({
     el: "#app",

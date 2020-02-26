@@ -1,5 +1,6 @@
 <?php
 
+use App\Permission;
 use App\Role;
 use Illuminate\Database\Seeder;
 
@@ -12,12 +13,12 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $adminRole =  Role::create([
-            'name' => 'Administrator',
-            'slug' => 'administrator'
+        Role::create([
+            'name' => 'Admin',
+            'slug' => 'admin'
         ]);
 
-        $userRole =  Role::create([
+        Role::create([
             'name' => 'User',
             'slug' => 'user'
         ]);

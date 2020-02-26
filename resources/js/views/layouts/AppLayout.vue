@@ -26,7 +26,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -40,7 +40,7 @@
         </v-row>
       </v-container>
     </v-content>
-    <v-footer color="indigo" app>
+    <v-footer color="primary" app>
       <span class="white--text">&copy; 2020</span>
     </v-footer>
   </v-container>

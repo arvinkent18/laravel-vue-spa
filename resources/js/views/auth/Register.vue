@@ -48,7 +48,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" @click="registerUser">Register</v-btn>
+          <v-btn color="primary" @click="registerUser">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -88,7 +88,8 @@ export default {
           .then(response => {
             this.addNotification({
               show: true,
-              text: "Registered successfully"
+              text: "Registered successfully",
+              color: "success"
             }).then(() => {
               this.$router.push({
                 name: "login"
@@ -98,7 +99,8 @@ export default {
           .catch(() => {
             this.addNotification({
               show: true,
-              text: "Failed to register"
+              text: "Failed to register",
+              color: "error"
             });
           });
       }

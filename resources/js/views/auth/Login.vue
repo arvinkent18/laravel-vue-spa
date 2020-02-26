@@ -28,6 +28,7 @@
           </v-form>
         </v-card-text>
         <v-card-actions>
+          <v-btn color="secondary" to="register">Register</v-btn>
           <v-spacer />
           <v-btn color="primary" @click="loginUser">Login</v-btn>
         </v-card-actions>
@@ -58,14 +59,23 @@ export default {
     }),
     loginUser() {
       if (this.$refs.loginForm.validate()) {
-        this.login(this.user).then(response => {
-          this.addNotification({
-            show: true,
-            text: "Logged in successfully!"
-          }).then(() => {
-            this.$router.push({ name: "dashboard" });
+        this.login(this.user)
+          .then(response => {
+            this.addNotification({
+              show: true,
+              text: "Logged in successfully!",
+              color: "success"
+            }).then(() => {
+              this.$router.push({ name: "dashboard" });
+            });
+          })
+          .catch(() => {
+            this.addNotification({
+              show: true,
+              text: "Email or Password invalid!",
+              color: "error"
+            });
           });
-        });
       }
     }
   }

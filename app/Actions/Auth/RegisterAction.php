@@ -9,7 +9,7 @@ class RegisterAction
 {
     public function run($request)
     {
-        $role = Role::defaultRole()->first();
+        $role = Role::adminRole()->first();
 
         $user = User::create([
             'name' => $request['name'],
